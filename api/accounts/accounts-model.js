@@ -35,7 +35,8 @@ async function updateById(id, account) {
 }
 
 async function deleteById(id) {
-  // DO YOUR MAGIC
+  await db('accounts').where({ id }).delete();
+  return `Account with id ${id} deleted`;
 }
 
 module.exports = {
