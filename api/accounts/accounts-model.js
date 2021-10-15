@@ -10,25 +10,25 @@ db('foo-table').where('id', id).delete() // resolves to the **number of records*
 
 const db = require('../../data/db-config');
 
-const getAll = () => {
+async function getAll() {
   return db('account');
-};
+}
 
-const getById = (id) => {
+async function getById(id) {
   // DO YOUR MAGIC
-};
+}
 
-const create = (account) => {
+async function create(account) {
   // DO YOUR MAGIC
-};
+}
 
-const updateById = (id, account) => {
+async function updateById(id, account) {
   // DO YOUR MAGIC
-};
+}
 
-const deleteById = (id) => {
+async function deleteById(id) {
   // DO YOUR MAGIC
-};
+}
 
 module.exports = {
   getAll,

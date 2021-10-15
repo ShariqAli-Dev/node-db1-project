@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const Accounts = require('./accounts-model');
 
 router.get('/', (req, res, next) => {
   res.json({ message: 'doing my stuff' });
@@ -22,7 +23,10 @@ router.delete('/:id', (req, res, next) => {
 
 router.use((err, req, res, next) => {
   // eslint-disable-line
-  // DO YOUR MAGIC
+  res.status(err.status || 500).json({
+    message: err.message,
+    stack: err.stack,
+  });
 });
 
 module.exports = router;
