@@ -15,7 +15,7 @@ async function getAll() {
 }
 
 async function getById(id) {
-  // DO YOUR MAGIC
+  return db('accounts').where({ id }).first();
 }
 
 async function create(account) {

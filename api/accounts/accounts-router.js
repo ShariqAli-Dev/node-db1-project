@@ -3,16 +3,17 @@ const Accounts = require('./accounts-model');
 
 router.get('/', async (req, res, next) => {
   try {
-    const data = await Accounts.getAll();
-    res.status(201).json(data);
+    const accounts = await Accounts.getAll();
+    res.status(201).json(accounts);
   } catch (err) {
     next(err);
   }
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
-    // something
+    const account = await Accounts.getById(req.params.id);
+    res.status(201).json(account);
   } catch (err) {
     next(err);
   }
