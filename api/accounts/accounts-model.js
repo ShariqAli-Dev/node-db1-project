@@ -11,7 +11,7 @@ db('foo-table').where('id', id).delete() // resolves to the **number of records*
 const db = require('../../data/db-config');
 
 async function getAll() {
-  return db('account');
+  return db('accounts');
 }
 
 async function getById(id) {
