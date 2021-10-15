@@ -30,7 +30,8 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    // something
+    const updatedAccount = await Accounts.updateById(req.params.id, req.body);
+    res.status(201).json(updatedAccount);
   } catch (err) {
     next(err);
   }

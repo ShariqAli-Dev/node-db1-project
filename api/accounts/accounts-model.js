@@ -30,7 +30,8 @@ async function create(account) {
 }
 
 async function updateById(id, account) {
-  // DO YOUR MAGIC
+  await db('accounts').where({ id }).update(account);
+  return db('accounts').where({ id });
 }
 
 async function deleteById(id) {
