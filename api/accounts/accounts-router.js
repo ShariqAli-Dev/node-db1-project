@@ -19,7 +19,16 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
+  try {
+    const newAccount = await Accounts.create(req.body);
+    res.status(201).json(newAccount);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/:id', async (req, res, next) => {
   try {
     // something
   } catch (err) {
@@ -27,15 +36,7 @@ router.post('/', (req, res, next) => {
   }
 });
 
-router.put('/:id', (req, res, next) => {
-  try {
-    // something
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     // something
   } catch (err) {
