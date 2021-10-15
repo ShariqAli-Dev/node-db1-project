@@ -1,11 +1,14 @@
+const Accounts = require('./accounts-model');
+
 const checkAccountPayload = (req, res, next) => {
-  const { name, budget } = req.body;
+  const name = req.body.name.trim();
+  const budget = req.body.budget;
 
   if (!name || !budget) {
     next({ status: 400, message: 'name and budget are required' });
   } else if (typeof name !== 'string') {
-    next({ status: 400, message: 'name of account byst be a string' });
-  } else if (name.trim().length < 3 || name.trim.length > 100) {
+    next({ status: 400, message: 'name of account must be a string' });
+  } else if (name.length < 3 || name.length > 100) {
     next({ status: 400, message: 'name of account must be between 3 and 100' });
   } else if (typeof budget !== 'number') {
     next({ status: 400, message: 'budget of account must be a number' });
@@ -14,17 +17,28 @@ const checkAccountPayload = (req, res, next) => {
       status: 400,
       message: 'budget of account is too large or too small',
     });
+  } else {
+    req.account = { name: name, budget: budget };
+    next();
   }
-  req.account = { name: name.trim(), budget: budget.trim() };
-  next();
 };
 
-const checkAccountNameUnique = (req, res, next) => {
-  // DO YOUR MAGIC
+const checkAccountNameUnique = async (req, res, next) => {
+  const accounts = await Accounts.getAll();
+  if (accounts.find((account) => account.name === req.body.name.trim())) {
+    next({ message: 'that name is taken' });
+  } else {
+    next();
+  }
 };
 
-const checkAccountId = (req, res, next) => {
-  // DO YOUR MAGIC
+const checkAccountId = async (req, res, next) => {
+  const accounts = await Accounts.getById(req.params.id);
+  if (!accounts) {
+    next({ status: 400, message: 'that name is taken' });
+  } else {
+    next();
+  }
 };
 
 module.exports = {
